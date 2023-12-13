@@ -6,7 +6,7 @@ SCALA = scala
 SCALAFLAGS =
 
 # List of program names (without the .scala extension)
-PROGRAMS = P01
+PROGRAMS = P01 P02 P03 P04
 LAST = $(shell echo $(PROGRAMS) | awk '{print $$NF}')
 
 # Targets
@@ -16,7 +16,7 @@ all: clean $(PROGRAMS)
 run:
 	@echo "\033[32mCompiling and executing:\033[0m \033[1m$(P)\033[0m"
 	$(SCALAC) $(SCALAFLAGS) $(P).scala
-	$(SCALA) $(P)"Test"
+	$(SCALA) $(P)
 
 # Compile and execute last program
 last: $(LAST)
@@ -25,7 +25,7 @@ last: $(LAST)
 $(PROGRAMS): %: %.scala
 	@echo "\033[32mCompiling and executing:\033[0m \033[1m$<\033[0m"
 	$(SCALAC) $(SCALAFLAGS) $<
-	$(SCALA) $@"Test"
+	$(SCALA) $@
 
 clean:
 	rm -f *.class

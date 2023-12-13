@@ -6,10 +6,9 @@ object P01 {
     case x :: Nil => x
     case x :: xs => last(xs)
   }
-}
 
-object P01Test {
   def main(args: Array[String]) {
     println(P01.last(List(1, 1, 2, 3, 5, 8)))
   }
 }
+
