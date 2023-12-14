@@ -6,7 +6,7 @@ SCALA = scala
 SCALAFLAGS =
 
 # List of program names (without the .scala extension)
-PROGRAMS = P01 P02 P03 P04 P05 P06 P07
+PROGRAMS = P01 P02 P03 P04 P05 P06 P07 P08 P09
 LAST = $(shell echo $(PROGRAMS) | awk '{print $$NF}')
 
 # Targets
