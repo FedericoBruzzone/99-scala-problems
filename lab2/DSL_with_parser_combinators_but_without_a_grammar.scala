@@ -12,7 +12,12 @@ class TestParser extends JavaTokenParsers {
                   "cos" -> (scala.math.cos(_)),
                   "tan" -> (scala.math.tan(_)))
 
+  var variables = Map[String, Int]()
+
   // def expr: Parser[Any] = fact ~ opt(op ~ fact)
+  def assign = (id ~ "=" ~ expr) ^^ { case v ~ "=" ~ e => variables += (v -> e); e }
+  def id = """[a-zA-Z_]\w*""".r
+
   def expr = (fact ~ op ~ fact) ^^ { case t1 ~ opf ~ t2 => opf.get(t1, t2) } | fact
   def op = ("*" | "/") ^^ { map1.get(_) }
   def fact = (term ~ op2 ~ term) ^^ { case t1 ~ opf ~ t2 => opf.get(t1, t2) } | term
@@ -30,8 +35,10 @@ object TestMain {
   def main(args: Array[String]) = {
     // val lines = scala.io.Source.fromFile(args(0)).mkString
     val parser = new TestParser
-    val result = parser.parseAll(parser.expr, "sqrt(4) + 100")
+    val result = parser.parseAll(parser.expr, "sqrt(4) + 100 * 2")
     println(result)
+    val result2 = parser.parseAll(parser.assign, "x = 100")
+    println(parser.variables)
   }
 }
 
