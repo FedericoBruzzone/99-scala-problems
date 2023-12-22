@@ -17,7 +17,6 @@ class TestParser extends JavaTokenParsers {
   // def expr: Parser[Any] = fact ~ opt(op ~ fact)
   def assign = (id ~ "=" ~ expr) ^^ { case v ~ "=" ~ e => variables += (v -> e); e }
   def id = """[a-zA-Z_]\w*""".r
-
   def expr = (fact ~ op ~ fact) ^^ { case t1 ~ opf ~ t2 => opf.get(t1, t2) } | fact
   def op = ("*" | "/") ^^ { map1.get(_) }
   def fact = (term ~ op2 ~ term) ^^ { case t1 ~ opf ~ t2 => opf.get(t1, t2) } | term
