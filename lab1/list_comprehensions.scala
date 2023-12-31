@@ -1,14 +1,22 @@
 class SquaredNumbers {
-  def square_numbers(l: List[Any]): List[Any] = {
-    (for (x <- l) yield x match {
-      case i: Int => i * i
-      case d: Double => d * d
-      case f: Float => f * f
-      case t: Tuple2[Any, Any] => square_numbers(t.productIterator.toList)
-      case t: Tuple3[Any, Any, Any] => square_numbers(t.productIterator.toList)
-      case l: List[Any] => square_numbers(l)
-      case _ => ""
-    }).filter(_ != "")
+  // def square_numbers(l: List[Any]): List[Any] = {
+  //   (for (x <- l) yield x match {
+  //     case i: Int => i * i
+  //     case d: Double => d * d
+  //     case f: Float => f * f
+  //     case t: Tuple2[Any, Any] => square_numbers(t.productIterator.toList)
+  //     case t: Tuple3[Any, Any, Any] => square_numbers(t.productIterator.toList)
+  //     case l: List[Any] => square_numbers(l)
+  //     case _ => ""
+  //   }).filter(_ != "")
+  // }
+  def square_numbers(inputs: List[Any]): List[Any] = {
+    return for (input @ (_: Int | _: List[Any]) <- inputs) yield input match {
+      case l: List[Any] =>
+        square_numbers(l)
+      case num: Int =>
+        num * num
+    }
   }
 }
 
