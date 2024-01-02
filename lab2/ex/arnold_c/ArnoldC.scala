@@ -13,7 +13,7 @@ class ArnoldCParser extends JavaTokenParsers {
   def stmts: Parser[() => Any] = rep(stmt) ^^ { x => () => x.foreach { stmt => stmt() } }
   def stmt = print | init | if_then_else | assgn  | loop
   def print = "TALK TO THE HAND" ~> (id | value | unquotedString) ^^
-    { case id => () => println(id()) }
+    { case x => () => println(x()) }
   def init= "HEY CHRISTMAS TREE" ~> """[a-zA-Z][a-zA-Z0-9_]*""".r ~ ("YOU SET US UP" ~> value) ^^
     { case id ~ value => () => symbol_table += (id -> value()) }
   def if_then_else = "BECAUSE I'M GOING TO SAY PLEASE" ~> id ~ ("[" ~> stmts) ~ ("]" ~> "BULLSHIT" ~> "[" ~> stmts) <~ "]" <~ "YOU HAVE NO RESPECT FOR LOGIC" ^^
