@@ -13,16 +13,18 @@ class WtfParser extends RegexParsers {
   // def args = """[0-9]""".r
   // def body_fun = ""
 
-  def stmt: Parser[Any] = print | fun_call | expr
+  def stmt =  print | expr
 
-  def expr: Parser[Any] = "0" ~ rep(("+" | "-")) | "0"  // | tern_if
+  def expr = fun_call | add_sub
 
-  def fun_call = rep(expr) ~ fun_name
-  //
+  def add_sub = "0" ~ rep(("+" | "-")) | "0"  // | tern_if
+
+  def fun_call = rep(add_sub) ~ fun_name
+
   // def tern_if = expr ~ "?" ~ if_body ~ ":" ~ if_body
   // def if_body = "[" ~ stmts ~ "]"
-  //
-  def print = stmt ~ "!"
+
+  def print = expr ~ "!"
 }
 
 
