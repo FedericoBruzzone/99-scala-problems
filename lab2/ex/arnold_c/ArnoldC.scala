@@ -16,8 +16,8 @@ class ArnoldCParser extends JavaTokenParsers {
     { case id => () => println(id()) }
   def init= "HEY CHRISTMAS TREE" ~> """[a-zA-Z][a-zA-Z0-9_]*""".r ~ ("YOU SET US UP" ~> value) ^^
     { case id ~ value => () => symbol_table += (id -> value()) }
-  def if_then_else = "BECAUSE I'M GOING TO SAY PLEASE" ~> id ~ ("[" ~> stmts) ~ ("]" ~> "BULLSHIT" ~> "[" ~> stmts) ~ ("]" ~> "YOU HAVE NO RESPECT FOR LOGIC") ^^
-    { case id ~ if_stmts ~ else_stmts ~ _ => () => if (id() != 0) if_stmts() else else_stmts() }
+  def if_then_else = "BECAUSE I'M GOING TO SAY PLEASE" ~> id ~ ("[" ~> stmts) ~ ("]" ~> "BULLSHIT" ~> "[" ~> stmts) <~ "]" <~ "YOU HAVE NO RESPECT FOR LOGIC" ^^
+    { case id ~ if_stmts ~ else_stmts => () => if (id() != 0) if_stmts() else else_stmts() }
   def assgn = "GET TO THE CHOPPER" ~> """[a-zA-Z][a-zA-Z0-9_]*""".r ~ ("HERE IS MY INVITATION" ~> value) ~ exprs <~ "ENOUGH TALK" ^^
     { case id ~ value ~ exprs => () => { stack.push(value()); exprs(); symbol_table += (id -> stack.pop()) } }
   def loop = "STICK AROUND" ~> id ~ ("[" ~> stmts) <~ "]" <~ "CHILL" ^^
