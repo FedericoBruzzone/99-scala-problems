@@ -17,7 +17,7 @@ class LCParser extends JavaTokenParsers {
   def app: Parser[LC] = abs ~ app ^^ { case e1 ~ e2 => App(e1, e2) } | abs
   def abs: Parser[LC] = "λ" ~ varr ~ "." ~ expr ^^ { case "λ" ~ v ~ "." ~ e => Abs(v, e)} | varr
   def varr: Parser[LC] = """[a-z]""".r ^^ { case v => Var(v) } | "(" ~> expr <~ ")"
-} 
+}
 
 object LCEvaluator {
   def main(args: Array[String]) = {

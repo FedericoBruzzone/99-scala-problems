@@ -77,14 +77,16 @@ override protected val whiteSpace = """[^><\+\-\[\]\.#,]*""".r
 ```scala
 // ==========================================================
 override def skipWhitespace = false
-override protected val whiteSpace = """[ \t\f]+""".r
 
-def line = repsep(<x>, "\n") ^^ {s => s.dropRight(1)}
+def line = repsep(<x>, ",") ^^ {s => s.dropRight(1)}
 // ==========================================================
 
 // ==========================================================
-def body_one_line = """.*\n""".r ^^ {s => s.dropRight(1)}
-def body =  """(?s)\[.*?\]""".r ^^ {s => s.substring(1,s.length-1)}
+def stmts = repsep(stmt, ";") <~ opt(";") // Calculator
+
+def body_one_line = """.*\n""".r ^^ {s => s.dropRight(1)} // WTF
+def body =  """(?s)\[.*?\]""".r ^^ {s => s.substring(1,s.length-1)} // WTF
+
 def vari = """[^\?!\.\n\r,]+""".r // If a varibale/field can contain spaces
 // ==========================================================
 ```
