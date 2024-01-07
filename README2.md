@@ -92,9 +92,13 @@ def vari = """[^\?!\.\n\r,]+""".r // If a varibale/field can contain spaces
 ## Default Values
 
 **ident** = """[a-zA-Z_][a-zA-Z0-9_]*""".r
+
 **wholeNumber** = """-?[0-9]+""".r
+
 **decimalNumber** = """(\d+(\.\d*)?|\d*\.\d+)""".r
+
 **stringLiteral** = ("\""+"""([^"\x00-\x1F\x7F\\]|\\[\\'"bfnrt]|\\u[a-fA-F0-9]{4})*"""+"\"").r
+
 **floatingPointNumber** = """-?(\d+(\.\d*)?|\d*\.\d+)([eE][+-]?\d+)?[fFdD]?""".r
 
 ```scala
