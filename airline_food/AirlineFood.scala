@@ -8,7 +8,7 @@ class AirlineFoodParser(var s: List[Tuple2[String, Int]], var p: Int) extends Ja
   def program = stmts
 
   def stmts = rep(stmt)
-  def stmt: Parser[Any] = init | init_and_point | p_down | p_up | set_p | add_to_p_loc | sub_to_p_loc | mul_to_p_loc | stdin | stdout | loop 
+  def stmt: Parser[Any] = init | init_and_point | p_down | p_up | set_p | add_to_p_loc | sub_to_p_loc | mul_to_p_loc | stdin | stdout | loop
   def init = "You" ~> "ever" ~> "notice" ~> vari <~ "?" ^^ { case v => s = s ::: List((v, 1)); }
   def init_and_point = "What's" ~> "the" ~> "deal" ~> "with" ~> vari <~ "?" ^^ { case v => s = s ::: List((v, 1)); p = s.length - 1; }
   def p_down = "Um," ^^ { case _ => if (p > 0) { p -= 1; } }

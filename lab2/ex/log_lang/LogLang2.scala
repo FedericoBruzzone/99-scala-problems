@@ -14,7 +14,7 @@ class LogLangParser extends JavaTokenParsers {
     def remove: Parser[() => Boolean] = "remove" ~> file_name ^^ { case x => () => { new File(x).delete() } }
     def rename: Parser[() => Boolean] = "rename" ~> file_name ~ file_name ^^ { case x ~ y => () => { new File(x).renameTo(new File(y)) } }
     def backup: Parser[() => Boolean] = "backup" ~> file_name ~ file_name ^^ { case x ~ y => () => {
-            try { new FileOutputStream(y).getChannel().transferFrom(new FileInputStream(x).getChannel(), 0, Long.MaxValue); true } 
+            try { new FileOutputStream(y).getChannel().transferFrom(new FileInputStream(x).getChannel(), 0, Long.MaxValue); true }
             catch { case e: Exception => false }
         }
     }
@@ -25,7 +25,7 @@ class LogLangParser extends JavaTokenParsers {
                 m.getChannel().transferTo(0, Long.MaxValue, new FileOutputStream(y).getChannel());
                 true
             } catch { case e: Exception => false }
-        } 
+        }
     }
 
     def file_name = stringLiteral ^^ { s => s.substring(1, s.length - 1) }

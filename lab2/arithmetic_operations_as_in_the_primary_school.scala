@@ -9,7 +9,8 @@ class TestParser extends JavaTokenParsers {
 
   def operation: Parser[(List[BigInt], BigInt)] = wholeNumber ~ rep(number) ~ result ^^ { case f ~ n ~ r => (BigInt(f) :: n, r) }
   def number = ("+" | "-") ~ wholeNumber ^^ { case s ~ n => BigInt(s + n) }
-  def result = "=" ~> dashline ~> opt("-") ~ wholeNumber ^^ { case s ~ n => BigInt(s.getOrElse("") + n) }
+  // def result = "=" ~> dashline ~> opt("-") ~ wholeNumber ^^ { case s ~ n => BigInt(s.getOrElse("") + n) }
+  def result = "=" ~> dashline ~> wholeNumber ^^ { case n => BigInt(n) }
   def dashline: Parser[Any] = """[-]+""".r
 
   def eval(n: List[BigInt]): BigInt = {
