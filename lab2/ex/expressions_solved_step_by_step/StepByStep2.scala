@@ -12,14 +12,16 @@ sealed trait Tree {
     "/" -> ((_: Int) / (_: Int)),
   )
 }
-case class Leaf(n: Int) extends Tree { override def toString(): String = { return n.toString } }
+case class Leaf(n: Int) extends Tree { override def toString(): String = { return if (n == 0) "" else n.toString } }
 case class Internal(l: Tree, r: Tree, op: String) extends Tree { override def toString(): String = { return "(" + l.toString + op + r.toString + ")" } }
 
 class StepByStepParser extends JavaTokenParsers {
   def program = expr
   def expr: Parser[Tree] = fact ~ ("+" | "-") ~ expr ^^ { case x ~ op ~ y => Internal(x, y, op) } | fact
   def fact: Parser[Tree] = term ~ ("*" | "/") ~ fact ^^ { case x ~ op ~ y => Internal(x, y, op) } | term
-  def term = ("(" ~> expr <~ ")") | wholeNumber ^^ { case x => Leaf(x.toInt) }
+  def term: Parser[Tree] = ("(" ~> expr <~ ")"
+                           | wholeNumber ^^ { case x => Leaf(x.toInt) }
+                           | "-" ~> fact ^^ { case x => Internal(Leaf(0), x, "-") })
 }
 
 class StepByStepPrinter {

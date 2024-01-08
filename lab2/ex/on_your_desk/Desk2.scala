@@ -1,5 +1,4 @@
 // scalac -cp .:./../../scala-parser-combinators_2.13-2.3.0.jar ./Desk2.scala && scala -cp .:./../../scala-parser-combinators_2.13-2.3.0.jar ./DeskEvaluator test.desk
-// 15.48
 
 import scala.util.parsing.combinator._
 import scala.io._

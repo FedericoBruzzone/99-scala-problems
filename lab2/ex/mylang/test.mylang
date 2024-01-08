@@ -1,0 +1,8 @@
+def func(a, b) {
+  c = 2 * (a + b)
+  print(c)
+}
+
+c = 10
+func(c, 10)
+print(c)

@@ -18,10 +18,10 @@ class CsvPrinter(val records: List[List[String]]) {
   val title = records.head
   val rows = records.tail
 
-  def maxPerCell(): List[Int] = { colunms.map { colunm => colunm.map { cell => cell.length }.max } }
+  def maxPerCell(): List[Int] = { colunms.map { colunm => colunm.map({ case cell => cell.length }).max } }
   def padCell(cell: String, max: Int): String = { cell + (" " * (max - cell.length)) }
   def printDashedLine(maxs: List[Int]): String = { return "-" * (maxs.sum + (maxs.length * 3) + 1) }
-  def printRow(r: List[String], max: List[Int]): String = { return "| " + r.zip(max).map { case (cell, max) => padCell(cell, max) }.mkString(" | ") + " |" }
+  def printRow(r: List[String], max: List[Int]): String = { return "| " + r.zip(max).map({ case (cell, max) => padCell(cell, max) }).mkString(" | ") + " |" }
 
   def pprint(): Unit = {
     val maxs = maxPerCell()
