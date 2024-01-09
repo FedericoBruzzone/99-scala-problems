@@ -2,7 +2,6 @@
 import scala.util.parsing.combinator._
 import scala.collection.mutable._
 
-
 class WtFCombinators(var the_stack: Stack[Int],
                      var the_table: HashMap[Char,(Int, String)],
                      var args_table: Array[Int]) extends JavaTokenParsers {
