@@ -6,10 +6,11 @@ class CsvParser extends JavaTokenParsers {
   override def skipWhitespace = false
   // override protected val whiteSpace = """[ \t\f]+""".r
 
-  def program = records
+  def program = records ^^ { case rs => rs.dropRight(1) }
   def records = repsep(record, eol) ^^ { case rs => rs.dropRight(1) }
-  def record = repsep(field, ",")
-  def field = """[^,\n\r]*""".r
+  def record = repsep((field2 | field), ",")
+  def field = """[^,\n\r"]*""".r
+  def field2 = stringLiteral ^^ { case c => c.substring(1, c.length - 1) }
   def eol = "\n" | "\r\n"
 }
 
